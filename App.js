@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, FlatList } from 'react-native';
+import { Platform, StyleSheet, Text, View, FlatList, SafeAreaView, StatusBar } from 'react-native';
 import Header from './src/components/Header';
 import InputBar from './src/components/InputBar';
 import TodoItem from './src/components/TodoItem';
@@ -53,19 +53,14 @@ export default class App extends React.Component {
   }
 
   render() {
-      const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>;
-
       return (
-        <View style={styles.container}>
-          {statusbar}
-
+        <SafeAreaView style={styles.container}>
+          <StatusBar animated={true} backgroundColor="#61dafb" />
           {/* <Header title="Todoapp" /> */}
-
           <InputBar
             addNewTodo={() => this.addNewTodo()}
             textChange={todoInput => this.setState({ todoInput })}
-            todoInput={this.state.todoInput}
-          />
+            todoInput={this.state.todoInput} />
 
           <FlatList
             data={this.state.todos}
@@ -77,7 +72,7 @@ export default class App extends React.Component {
               )
             }}
           />
-        </View>
+        </SafeAreaView>
       );
   }
 }
