@@ -1,42 +1,73 @@
 import React from 'react';
-import { StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Button, TouchableOpacity, Dimensions, View } from 'react-native';
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 export default class TodoItem extends React.Component {
-  constructor (props) {
-    super(props);
-  }
+    constructor (props) {
+      super(props);
+    }
 
-  render () {
-    const todoItem = this.props.todoItem;
+    render () {
+        const todoItem = this.props.todoItem;
 
-    return (
-      <TouchableOpacity
-        style={styles.todoItem}
-        onPress={() => this.props.toggleDone()}
-      >
-        <Text style={(todoItem.done) ? { color: '#AAAAAA' } : { color: '#313131' }}>
-          { todoItem.title }
-        </Text>
+        return (
+            <TouchableOpacity
+              style={styles.todoItem}
+              onPress={() => this.props.toggleDone()}>
 
-        <Button
-          title="Remove"
-          color={(todoItem.done) ? 'rgba(200, 0, 0, 0.5)' : 'rgba(255, 0, 0, 1)' }
-          onPress={() => this.props.removeTodo()}
-        />
-      </TouchableOpacity>
-    )
-  }
+                <View style={styles.textContainer}>
+                    <Icon
+                        name={todoItem.done ? "check-circle" : "radio-button-unchecked"}
+                        size={20}
+                        style={styles.todoCheck}
+                        color="#666666" />  
+                    <Text style={todoItem.done ? styles.todoTitleSelected : styles.todoTitleUnselected}>{ todoItem.title }</Text>
+                </View>
+
+                <Icon
+                    name="strikethrough-s"
+                    style={styles.trailing}
+                    size={22}
+                    color="#666666"
+                    onPress={() => this.props.removeTodo()} />
+
+                <Icon
+                    name="delete"
+                    style={styles.trailing}
+                    size={22}
+                    color="#666666"
+                    onPress={() => this.props.removeTodo()} />
+
+            </TouchableOpacity>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-  todoItem: {
-    width: '100%',
-    height: 40,
-    borderBottomColor: '#DDD',
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingLeft: 15
-  }
+    textContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '80%',
+    },
+    todoCheck: {
+      marginRight: '2%',
+      color: "green"
+    },
+    todoItem: {
+        width: Dimensions.get('window').width,
+        height: 40,
+        borderBottomColor: '#DDD',
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 30,
+    },
+    todoTitleSelected: {
+      fontWeight: 'bold',
+      color: "#000",
+    },
+    todoTitleUnselected: {
+        color: "#666"
+    }
 })

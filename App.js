@@ -59,7 +59,7 @@ export default class App extends React.Component {
         <View style={styles.container}>
           {statusbar}
 
-          <Header title="Todoapp" />
+          {/* <Header title="Todoapp" /> */}
 
           <InputBar
             addNewTodo={() => this.addNewTodo()}
@@ -85,7 +85,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f0f0',
   },
   statusbar: {
     backgroundColor: '#FFCE00',

@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const InputBar = (props) => {
   return (
@@ -8,10 +9,13 @@ const InputBar = (props) => {
         style={styles.input}
         onChangeText={(todoInput) => props.textChange(todoInput)}
         value={props.todoInput}
+        placeholder="Items to Add"
+        onSubmitEditing={props.addNewTodo}
       />
-      <TouchableOpacity style={styles.addButton} onPress={props.addNewTodo}>
-        <Text style={styles.addButtonText}>ADD</Text>
-      </TouchableOpacity>
+      {/* <TouchableOpacity style={styles.addButton} onPress={props.addNewTodo}>
+          <Icon name={"storage"} size={20} color="#666666" style={{ marginRight: '10%' }} /> 
+          <Text style={styles.addButtonText}>ADD</Text>
+      </TouchableOpacity> */}
     </View>
   )
 }
@@ -20,21 +24,34 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    shadowOffset: { width: 0, height: 3 },
-    shadowColor: '#171717',
-    shadowOpacity: .1
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,  
+    elevation: 3,
+    marginHorizontal: 20,
+    borderRadius: 10,
+    marginVertical: 10
   },
   input: {
-    backgroundColor: '#F3F3F3',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    backgroundColor: '#fff',
     flex: 1,
     fontSize: 18,
-    height: 35
+    height: 35,
+    borderRadius: 5,
+    paddingHorizontal: 30,
+    paddingVertical: 25
   },
   addButton: {
     width: 100,
     backgroundColor: '#FFCE00',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
   },
   addButtonText: {
     color: '#171717',
