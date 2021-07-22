@@ -12,18 +12,18 @@ export default class TodoItem extends React.Component {
 
         return (
             <TouchableOpacity
-              style={styles.todoItem}
+              style={[styles.todoItem, todoItem.done ? styles.boxShadowWithSelected : '']}
               onPress={() => this.props.toggleDone()}>
-
                 <View style={styles.textContainer}>
                     <Icon
                         name={todoItem.done ? "check-circle" : "radio-button-unchecked"}
                         size={20}
                         style={styles.todoCheck}
                         color="#666666" />  
-                    <Text style={todoItem.done ? styles.todoTitleSelected : styles.todoTitleUnselected}>{ todoItem.title }</Text>
-                </View>
-
+                        <Text style={todoItem.done ? styles.todoTitleSelected : styles.todoTitleUnselected}>{ todoItem.title }</Text>
+                        
+                    </View>
+                    
                 <Icon
                     name="delete"
                     style={styles.trailing}
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     textContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      width: '80%'
+      width: '90%'
     },
     todoCheck: {
       marginRight: '2%',
@@ -68,5 +68,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         width: '80%',
         marginLeft: '2%'
+    },
+    boxShadowWithSelected: {
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,  
+        elevation: 3,
+        borderRadius: 0,
+        backgroundColor: '#fff'
     }
 })

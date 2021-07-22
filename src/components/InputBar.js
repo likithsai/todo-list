@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Dimensions } from 'react-native';
-import Icon from "react-native-vector-icons/MaterialIcons";
 
 const InputBar = (props) => {
   return (
@@ -12,10 +11,6 @@ const InputBar = (props) => {
         placeholder="Items to Add"
         onSubmitEditing={props.addNewTodo}
       />
-      {/* <TouchableOpacity style={styles.addButton} onPress={props.addNewTodo}>
-          <Icon name={"storage"} size={20} color="#666666" style={{ marginRight: '10%' }} /> 
-          <Text style={styles.addButtonText}>ADD</Text>
-      </TouchableOpacity> */}
     </View>
   )
 }
