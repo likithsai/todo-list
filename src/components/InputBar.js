@@ -34,14 +34,11 @@ const styles = StyleSheet.create({
   },
   input: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
     backgroundColor: '#fff',
     flex: 1,
     fontSize: 18,
-    height: 35,
     borderRadius: 5,
-    paddingHorizontal: 30,
-    paddingVertical: 25
+    padding: 15
   },
   addButton: {
     width: 100,

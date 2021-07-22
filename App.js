@@ -55,7 +55,7 @@ export default class App extends React.Component {
   render() {
       return (
         <SafeAreaView style={styles.container}>
-          <StatusBar animated={true} backgroundColor="#61dafb" />
+          <StatusBar animated={true} backgroundColor="#f0f0f0" />
           {/* <Header title="Todoapp" /> */}
           <InputBar
             addNewTodo={() => this.addNewTodo()}

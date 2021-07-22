@@ -25,13 +25,6 @@ export default class TodoItem extends React.Component {
                 </View>
 
                 <Icon
-                    name="strikethrough-s"
-                    style={styles.trailing}
-                    size={22}
-                    color="#666666"
-                    onPress={() => this.props.removeTodo()} />
-
-                <Icon
                     name="delete"
                     style={styles.trailing}
                     size={22}
@@ -47,7 +40,7 @@ const styles = StyleSheet.create({
     textContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      width: '80%',
+      width: '80%'
     },
     todoCheck: {
       marginRight: '2%',
@@ -66,8 +59,10 @@ const styles = StyleSheet.create({
     todoTitleSelected: {
       fontWeight: 'bold',
       color: "#000",
+      fontSize: 16
     },
     todoTitleUnselected: {
-        color: "#666"
+        color: "#666",
+        fontSize: 16
     }
 })
