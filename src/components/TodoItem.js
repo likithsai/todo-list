@@ -57,12 +57,16 @@ const styles = StyleSheet.create({
         padding: 30,
     },
     todoTitleSelected: {
-      fontWeight: 'bold',
-      color: "#000",
-      fontSize: 16
+        fontWeight: 'bold',
+        color: "#000",
+        fontSize: 16,
+        width: '80%',
+        marginLeft: '2%'
     },
     todoTitleUnselected: {
         color: "#666",
-        fontSize: 16
+        fontSize: 16,
+        width: '80%',
+        marginLeft: '2%'
     }
 })
