@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, SafeAreaView, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, FlatList, SafeAreaView, StatusBar, SectionList } from 'react-native';
 import InputBar from './src/components/InputBar';
 import TodoItem from './src/components/TodoItem';
 import DraggableFlatList from 'react-native-draggable-flatlist';
@@ -20,11 +20,14 @@ export default class App extends React.Component {
 
   addNewTodo () {
       let todos = this.state.todos;
+      var today = new Date();
 
       todos.unshift({
         id: todos.length + 1,
         title: this.state.todoInput,
-        done: false
+        done: false,
+        // date: today.toString().split(" ")[0] + " " + today.getDate() + ", " + today.getFullYear()
+        date: today.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })
       });
 
       this.setState({
