@@ -1,8 +1,18 @@
-import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, StatusBar, FlatList } from "react-native";
+import React, { useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  StatusBar,
+  FlatList,
+} from "react-native";
 import InputBar from "./src/components/InputBar";
 import TodoItem from "./src/components/TodoItem";
 import { Ionicons } from "@expo/vector-icons";
+import * as SQLite from "expo-sqlite";
+
+const db = SQLite.openDatabase("todoList.db");
 
 export default class App extends React.Component {
   constructor() {
@@ -14,8 +24,64 @@ export default class App extends React.Component {
         // { id: 0, title: 'Take out the trash', done: false, date: '1029384756' },
         // { id: 1, title: 'Cook dinner', done: false, date: '1029384756' }
       ],
-      // todos: this.getList('todos')
     };
+
+    this.createTODODatabase();
+    this.getTODODataFromDatabase();
+  }
+
+  componentDidMount() {
+    this.createTODODatabase();
+    this.getTODODataFromDatabase();
+  }
+
+  //  Create TODO Database
+  createTODODatabase() {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "CREATE TABLE IF NOT EXIST todo_list(todo_id INTEGER PRIMARY KEY NOT NULL, todo_data VARCHAR(200));"
+      );
+    });
+  }
+
+  //  get data from database
+  getTODODataFromDatabase() {
+    db.transaction((tx) => {
+      tx.executeSql("SELECT todo_data FROM todo_list", [], (_, { rows }) =>
+        this.setState({ todos: JSON.stringify(rows) })
+      );
+    });
+  }
+
+  //  insert item to databse
+  addTODODataToDatabase(values) {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "INSERT INTO todo_list(todo_data) VALUES(?)",
+        values.toString()
+      );
+    });
+  }
+
+  //  update TODO Data
+  updateTODODataToDatabase(items) {
+    db.transaction((tx) => {
+      tx.executeSql("UPDATE todo_list SET todo_data=? WHERE todo_id=1", [
+        items.toString(),
+      ]);
+    });
+  }
+
+  //  delete all items from database
+  deleteTODOItemsFromDatabase() {
+    db.transaction((tx) => {
+      tx.executeSql("DELETE FROM todo_list");
+    });
+  }
+
+  deleteAndAddItemsToDatabase() {
+    this.deleteTODOItemsFromDatabase();
+    this.addTODODataToDatabase(this.state.todos);
   }
 
   addNewTodo() {
@@ -31,13 +97,15 @@ export default class App extends React.Component {
         month: "long",
         day: "numeric",
       }),
-      category: "all"
+      category: "all",
     });
 
     this.setState({
       todos: todos,
       todoInput: "",
     });
+
+    this.deleteAndAddItemsToDatabase();
   }
 
   toggleDone(item) {
@@ -47,17 +115,18 @@ export default class App extends React.Component {
       if (todo.id == item.id) {
         todo.done = !todo.done;
       }
-
       return todo;
     });
 
     this.setState({ todos });
+    this.deleteAndAddItemsToDatabase();
   }
 
   removeTodo(item) {
     let todos = this.state.todos;
     todos = todos.filter((todo) => todo.id !== item.id);
     this.setState({ todos });
+    this.deleteAndAddItemsToDatabase();
   }
 
   EmptyListMessage = ({ item }) => {
