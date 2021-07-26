@@ -10,9 +10,9 @@ import {
 import InputBar from "./src/components/InputBar";
 import TodoItem from "./src/components/TodoItem";
 import { Ionicons } from "@expo/vector-icons";
-import * as SQLite from "expo-sqlite";
+// import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabase("todoList.db");
+// const db = SQLite.openDatabase("todoList.db");
 
 export default class App extends React.Component {
   constructor() {
@@ -26,63 +26,63 @@ export default class App extends React.Component {
       ],
     };
 
-    this.createTODODatabase();
-    this.getTODODataFromDatabase();
+    // this.createTODODatabase();
+    // this.getTODODataFromDatabase();
   }
 
-  componentDidMount() {
-    this.createTODODatabase();
-    this.getTODODataFromDatabase();
-  }
+  // componentDidMount() {
+  //   this.createTODODatabase();
+  //   this.getTODODataFromDatabase();
+  // }
 
-  //  Create TODO Database
-  createTODODatabase() {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "CREATE TABLE IF NOT EXIST todo_list(todo_id INTEGER PRIMARY KEY NOT NULL, todo_data VARCHAR(200));"
-      );
-    });
-  }
+  // //  Create TODO Database
+  // createTODODatabase() {
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       "CREATE TABLE IF NOT EXIST todo_list(todo_id INTEGER PRIMARY KEY NOT NULL, todo_data VARCHAR(200));"
+  //     );
+  //   });
+  // }
 
-  //  get data from database
-  getTODODataFromDatabase() {
-    db.transaction((tx) => {
-      tx.executeSql("SELECT todo_data FROM todo_list", [], (_, { rows }) => {
-        this.setState({ todos: JSON.stringify(rows) });
-      });
-    });
-  }
+  // //  get data from database
+  // getTODODataFromDatabase() {
+  //   db.transaction((tx) => {
+  //     tx.executeSql("SELECT todo_data FROM todo_list", [], (_, { rows }) => {
+  //       this.setState({ todos: JSON.stringify(rows) });
+  //     });
+  //   });
+  // }
 
-  //  Insert item to databse
-  addTODODataToDatabase(values) {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "INSERT INTO todo_list(todo_data) VALUES(?)",
-        values.toString()
-      );
-    });
-  }
+  // //  Insert item to databse
+  // addTODODataToDatabase(values) {
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       "INSERT INTO todo_list(todo_data) VALUES(?)",
+  //       values.toString()
+  //     );
+  //   });
+  // }
 
-  //  update TODO Data
-  updateTODODataToDatabase(items) {
-    db.transaction((tx) => {
-      tx.executeSql("UPDATE todo_list SET todo_data=? WHERE todo_id=1", [
-        items.toString(),
-      ]);
-    });
-  }
+  // //  update TODO Data
+  // updateTODODataToDatabase(items) {
+  //   db.transaction((tx) => {
+  //     tx.executeSql("UPDATE todo_list SET todo_data=? WHERE todo_id=1", [
+  //       items.toString(),
+  //     ]);
+  //   });
+  // }
 
-  //  delete all items from database
-  deleteTODOItemsFromDatabase() {
-    db.transaction((tx) => {
-      tx.executeSql("DELETE FROM todo_list");
-    });
-  }
+  // //  delete all items from database
+  // deleteTODOItemsFromDatabase() {
+  //   db.transaction((tx) => {
+  //     tx.executeSql("DELETE FROM todo_list");
+  //   });
+  // }
 
-  deleteAndAddItemsToDatabase() {
-    this.deleteTODOItemsFromDatabase();
-    this.addTODODataToDatabase(this.state.todos);
-  }
+  // deleteAndAddItemsToDatabase() {
+  //   this.deleteTODOItemsFromDatabase();
+  //   this.addTODODataToDatabase(this.state.todos);
+  // }
 
   addNewTodo() {
     let todos = this.state.todos;
@@ -104,7 +104,7 @@ export default class App extends React.Component {
       todos: todos,
       todoInput: "",
     });
-    this.deleteAndAddItemsToDatabase();
+    // this.deleteAndAddItemsToDatabase();
   }
 
   toggleDone(item) {
@@ -118,14 +118,14 @@ export default class App extends React.Component {
     });
 
     this.setState({ todos });
-    this.deleteAndAddItemsToDatabase();
+    // this.deleteAndAddItemsToDatabase();
   }
 
   removeTodo(item) {
     let todos = this.state.todos;
     todos = todos.filter((todo) => todo.id !== item.id);
     this.setState({ todos });
-    this.deleteAndAddItemsToDatabase();
+    // this.deleteAndAddItemsToDatabase();
   }
 
   EmptyListMessage = ({ item }) => {

@@ -36,16 +36,19 @@ export default class TodoItem extends React.Component {
             >
               {todoItem.title}
             </Text>
+            <Text style={styles.categoryText}>{todoItem.category}</Text>
             <Text style={styles.dateText}>{todoItem.date}</Text>
           </View>
         </View>
 
-        <Ionicons
-          name="md-trash-bin-outline"
-          size={30}
-          color="#666666"
-          onPress={() => this.props.removeTodo()}
-        />
+        <View style={{ flexDirection: "column", alignItems: "center" }}>
+          <Ionicons
+            name="md-trash-bin-outline"
+            size={30}
+            color="#666666"
+            onPress={() => this.props.removeTodo()}
+          />
+        </View>
       </TouchableOpacity>
     );
   }
@@ -93,7 +96,12 @@ const styles = StyleSheet.create({
   dateText: {
     width: "90%",
     fontSize: 12,
-    color: "#aaa",
-    marginTop: 10,
+    color: "#aaa"
+  },
+  categoryText: {
+    marginVertical: 10,
+    color: "#666",
+    flexDirection: "row",
+    alignItems: "center"
   },
 });
