@@ -36,8 +36,9 @@ export default class TodoItem extends React.Component {
             >
               {todoItem.title}
             </Text>
-            <Text style={styles.categoryText}>{todoItem.category}</Text>
-            <Text style={styles.dateText}>{todoItem.date}</Text>
+            <Text style={styles.dateText}>
+              {todoItem.date} ‣ {todoItem.category}
+            </Text>
           </View>
         </View>
 
@@ -94,14 +95,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   dateText: {
-    width: "90%",
+    // width: "90%",
     fontSize: 12,
-    color: "#aaa"
+    color: "#aaa",
+    marginVertical: 10
   },
   categoryText: {
     marginVertical: 10,
     color: "#666",
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
 });
