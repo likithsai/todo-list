@@ -36,9 +36,41 @@ export default class TodoItem extends React.Component {
             >
               {todoItem.title}
             </Text>
-            <Text style={styles.dateText}>
-              {todoItem.date} ‣ {todoItem.category}
-            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: 'center',
+                  marginRight: 10,
+                }}
+              >
+                <Ionicons
+                  name="time"
+                  size={20}
+                  color="#666666"
+                  style={{ marginRight: 10 }}
+                />
+                <Text style={styles.dateText}>{todoItem.date}</Text>
+              </View>
+              <Text style={styles.dateText}>‣</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginLeft: 10,
+                }}
+              >
+                <Ionicons
+                  name="duplicate"
+                  size={20}
+                  color="#666666"
+                  style={{ marginRight: 10 }}
+                />
+                <Text style={styles.dateText}>{todoItem.category}</Text>
+              </View>
+            </View>
           </View>
         </View>
 
@@ -61,10 +93,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     width: "90%",
   },
-  // todoCheck: {
-  //   marginRight: '2%',
-  //   color: "green"
-  // },
   todoItem: {
     width: Dimensions.get("window").width,
     borderBottomColor: "#DDD",
@@ -84,7 +112,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#666",
     fontSize: 18,
-    width: "90%",
+    width: "95%",
   },
   boxShadowWithSelected: {
     shadowOffset: { width: 0, height: 1 },
@@ -96,9 +124,10 @@ const styles = StyleSheet.create({
   },
   dateText: {
     // width: "90%",
-    fontSize: 12,
+    fontSize: 15,
     color: "#aaa",
-    marginVertical: 10
+    marginVertical: 10,
+    paddingTop: 5
   },
   categoryText: {
     marginVertical: 10,
