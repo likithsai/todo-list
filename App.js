@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -47,13 +47,13 @@ export default class App extends React.Component {
   //  get data from database
   getTODODataFromDatabase() {
     db.transaction((tx) => {
-      tx.executeSql("SELECT todo_data FROM todo_list", [], (_, { rows }) =>
-        this.setState({ todos: JSON.stringify(rows) })
-      );
+      tx.executeSql("SELECT todo_data FROM todo_list", [], (_, { rows }) => {
+        this.setState({ todos: JSON.stringify(rows) });
+      });
     });
   }
 
-  //  insert item to databse
+  //  Insert item to databse
   addTODODataToDatabase(values) {
     db.transaction((tx) => {
       tx.executeSql(
@@ -104,7 +104,6 @@ export default class App extends React.Component {
       todos: todos,
       todoInput: "",
     });
-
     this.deleteAndAddItemsToDatabase();
   }
 
