@@ -28,6 +28,9 @@ export default class TodoItem extends React.Component {
         <View style={styles.textContainer}>
           <View style={{ width: "90%" }}>
             <Text
+              numberOfLines={2} 
+              maxLines={2}
+              ellipsizeMode='tail'
               style={
                 todoItem.done
                   ? styles.todoTitleSelected
@@ -36,25 +39,6 @@ export default class TodoItem extends React.Component {
             >
               {todoItem.title}
             </Text>
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-                marginVertical: 10,
-              }}
-            >
-              <Ionicons
-                name="duplicate"
-                size={15}
-                color="#666666"
-                style={{ marginRight: 10 }}
-              />
-              <Text style={[styles.dateText, { marginTop: 2 }]}>
-                {todoItem.category}
-              </Text>
-            </View>
 
             <View style={{ flexDirection: "row" }}>
               <View
@@ -70,7 +54,31 @@ export default class TodoItem extends React.Component {
           </View>
         </View>
 
-        <View style={{ flexDirection: "column", alignItems: "center" }}>
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              marginVertical: 10,
+              marginHorizontal: 20,
+              paddingHorizontal: 10,
+              paddingVertical: 8,
+              backgroundColor: "#ccc",
+              borderRadius: 10
+            }}
+          >
+            <Ionicons
+              name="duplicate"
+              size={15}
+              color="#666666"
+              style={{ marginRight: 10 }}
+            />
+            <Text style={[styles.categoryText, { marginVertical: 0 }]}>
+              {todoItem.category}
+            </Text>
+          </View>
+
           <Ionicons
             name="md-trash-bin-outline"
             size={30}
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
-    width: "90%",
+    width: "60%",
   },
   todoItem: {
     width: Dimensions.get("window").width,
@@ -122,6 +130,12 @@ const styles = StyleSheet.create({
     // width: "90%",
     fontSize: 15,
     color: "#aaa",
+    marginVertical: 10
+  },
+  categoryText: {
+    // width: "90%",
+    fontSize: 15,
+    color: "#aaa"
   },
   categoryText: {
     marginVertical: 10,
