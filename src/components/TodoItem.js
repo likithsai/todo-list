@@ -42,7 +42,7 @@ export default class TodoItem extends React.Component {
                 flexDirection: "row",
                 alignItems: "flex-start",
                 justifyContent: "flex-start",
-                marginVertical: 10
+                marginVertical: 10,
               }}
             >
               <Ionicons
@@ -51,7 +51,9 @@ export default class TodoItem extends React.Component {
                 color="#666666"
                 style={{ marginRight: 10 }}
               />
-              <Text style={[styles.dateText, { marginTop: 2 }]}>{todoItem.category}</Text>
+              <Text style={[styles.dateText, { marginTop: 2 }]}>
+                {todoItem.category}
+              </Text>
             </View>
 
             <View style={{ flexDirection: "row" }}>
@@ -59,7 +61,7 @@ export default class TodoItem extends React.Component {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
                 }}
               >
                 <Text style={styles.dateText}>{todoItem.date}</Text>
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
   dateText: {
     // width: "90%",
     fontSize: 15,
-    color: "#aaa"
+    color: "#aaa",
   },
   categoryText: {
     marginVertical: 10,
