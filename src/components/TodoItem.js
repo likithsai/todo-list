@@ -36,39 +36,33 @@ export default class TodoItem extends React.Component {
             >
               {todoItem.title}
             </Text>
+
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                marginVertical: 10
+              }}
+            >
+              <Ionicons
+                name="duplicate"
+                size={15}
+                color="#666666"
+                style={{ marginRight: 10 }}
+              />
+              <Text style={[styles.dateText, { marginTop: 2 }]}>{todoItem.category}</Text>
+            </View>
+
             <View style={{ flexDirection: "row" }}>
               <View
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: 'center',
-                  marginRight: 10,
+                  justifyContent: "center"
                 }}
               >
-                <Ionicons
-                  name="time"
-                  size={20}
-                  color="#666666"
-                  style={{ marginRight: 10 }}
-                />
                 <Text style={styles.dateText}>{todoItem.date}</Text>
-              </View>
-              <Text style={styles.dateText}>‣</Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginLeft: 10,
-                }}
-              >
-                <Ionicons
-                  name="duplicate"
-                  size={20}
-                  color="#666666"
-                  style={{ marginRight: 10 }}
-                />
-                <Text style={styles.dateText}>{todoItem.category}</Text>
               </View>
             </View>
           </View>
@@ -106,13 +100,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000",
     fontSize: 18,
-    width: "90%",
+    // width: "95%",
   },
   todoTitleUnselected: {
     fontWeight: "bold",
     color: "#666",
     fontSize: 18,
-    width: "95%",
+    // width: "95%",
   },
   boxShadowWithSelected: {
     shadowOffset: { width: 0, height: 1 },
@@ -125,9 +119,7 @@ const styles = StyleSheet.create({
   dateText: {
     // width: "90%",
     fontSize: 15,
-    color: "#aaa",
-    marginVertical: 10,
-    paddingTop: 5
+    color: "#aaa"
   },
   categoryText: {
     marginVertical: 10,
