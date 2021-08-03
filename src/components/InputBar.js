@@ -19,14 +19,25 @@ const InputBar = (props) => {
         placeholder="Items to Add"
         onSubmitEditing={props.addNewTodo}
       />
-      <TouchableOpacity>
-        <Ionicons
-          name="md-options-outline"
-          size={30}
-          color="#555"
-          style={{ marginHorizontal: 10 }}
-        />
-      </TouchableOpacity>
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity>
+          <Ionicons
+            name="add"
+            size={30}
+            color="#555"
+            style={{ marginLeft: 10, marginRight: 5 }}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Ionicons
+            name="md-options-outline"
+            size={30}
+            color="#555"
+            style={{ marginLeft: 5, marginRight: 10 }}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
