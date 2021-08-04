@@ -2,7 +2,6 @@ import React from "react";
 import {
   StyleSheet,
   Text,
-  Button,
   TouchableOpacity,
   Dimensions,
   View,
@@ -23,7 +22,7 @@ export default class TodoItem extends React.Component {
           styles.todoItem,
           todoItem.done ? styles.boxShadowWithSelected : "",
         ]}
-        onPress={() => this.props.toggleDone()}
+        onLongPress={() => this.props.toggleDone()}
       >
         <View style={styles.textContainer}>
           <View style={{ width: "90%" }}>
@@ -55,30 +54,6 @@ export default class TodoItem extends React.Component {
         </View>
 
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
-          {/* <View
-            style={{
-              flexDirection: "row",
-              alignItems: "flex-start",
-              justifyContent: "flex-start",
-              marginVertical: 10,
-              marginHorizontal: 20,
-              paddingHorizontal: 10,
-              paddingVertical: 8,
-              backgroundColor: "#ccc",
-              borderRadius: 10
-            }}
-          >
-            <Ionicons
-              name="duplicate"
-              size={15}
-              color="#666666"
-              style={{ marginRight: 10 }}
-            />
-            <Text style={[styles.categoryText, { marginVertical: 0 }]}>
-              {todoItem.category}
-            </Text>
-          </View> */}
-
           <Ionicons
             name="md-trash-bin-outline"
             size={30}

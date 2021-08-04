@@ -1,7 +1,6 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
   View,
   TextInput,
   TouchableOpacity,
@@ -20,7 +19,7 @@ const InputBar = (props) => {
         onSubmitEditing={props.addNewTodo}
       />
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.addListHandler}>
           <Ionicons
             name="add"
             size={30}

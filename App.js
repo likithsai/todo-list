@@ -1,11 +1,13 @@
 import React from "react";
 import {
+  Alert,
   StyleSheet,
   Text,
   View,
   SafeAreaView,
   StatusBar,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import InputBar from "./src/components/InputBar";
 import TodoItem from "./src/components/TodoItem";
@@ -32,6 +34,7 @@ export default class App extends React.Component {
       id: todos.length + 1,
       title: this.state.todoInput,
       done: false,
+      selected: false,
       date: today.toLocaleDateString(undefined, {
         year: "numeric",
         month: "long",
@@ -86,16 +89,13 @@ export default class App extends React.Component {
   ListHeader = () => {
     //View to set in Header
     return (
-      <View style={styles.headerStyle}>
+      <TouchableOpacity style={styles.headerStyle}>
         <View
           style={{
             flexDirection: "row",
             alignItems: "flex-start",
             justifyContent: "flex-start",
-            paddingHorizontal: 10,
             paddingVertical: 8,
-            backgroundColor: "#ccc",
-            borderRadius: 10,
           }}
         >
           <Ionicons
@@ -104,14 +104,12 @@ export default class App extends React.Component {
             color="#666666"
             style={{ marginRight: 10 }}
           />
-          <Text style={[styles.categoryText, { marginVertical: 0 }]}>
-            All
-          </Text>
+          <Text style={[styles.categoryText, { marginVertical: 0 }]}>All</Text>
         </View>
         <Text style={styles.footerTextStyle}>
           {this.state.todos.length} items
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -121,6 +119,16 @@ export default class App extends React.Component {
         <StatusBar animated={true} backgroundColor="#f0f0f0" />
         <InputBar
           addNewTodo={() => this.addNewTodo()}
+          addListHandler={() =>
+            Alert.alert("Alert Title", "My Alert Msg", [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel",
+              },
+              { text: "OK", onPress: () => console.log("OK Pressed") },
+            ])
+          }
           textChange={(todoInput) => this.setState({ todoInput })}
           todoInput={this.state.todoInput}
         />
@@ -142,6 +150,7 @@ export default class App extends React.Component {
           }}
           ListEmptyComponent={this.EmptyListMessage}
           ListHeaderComponent={this.ListHeader}
+          stickyHeaderIndices={[0]}
         />
       </SafeAreaView>
     );
@@ -168,7 +177,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   headerStyle: {
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 25,
     marginBottom: 10,
