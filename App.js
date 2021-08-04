@@ -87,8 +87,29 @@ export default class App extends React.Component {
     //View to set in Header
     return (
       <View style={styles.headerStyle}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            paddingHorizontal: 10,
+            paddingVertical: 8,
+            backgroundColor: "#ccc",
+            borderRadius: 10,
+          }}
+        >
+          <Ionicons
+            name="duplicate"
+            size={15}
+            color="#666666"
+            style={{ marginRight: 10 }}
+          />
+          <Text style={[styles.categoryText, { marginVertical: 0 }]}>
+            All
+          </Text>
+        </View>
         <Text style={styles.footerTextStyle}>
-            { this.state.todos.length } items
+          {this.state.todos.length} items
         </Text>
       </View>
     );
@@ -147,11 +168,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   headerStyle: {
-    marginHorizontal: 30,
-    marginVertical: 5,
-    alignItems: "center"
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    marginHorizontal: 25,
+    marginBottom: 10,
+    alignItems: "center",
   },
   footerTextStyle: {
-    color: "#666"
-  }
+    color: "#666",
+  },
 });

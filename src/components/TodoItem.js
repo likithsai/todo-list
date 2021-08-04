@@ -55,7 +55,7 @@ export default class TodoItem extends React.Component {
         </View>
 
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               alignItems: "flex-start",
@@ -77,7 +77,7 @@ export default class TodoItem extends React.Component {
             <Text style={[styles.categoryText, { marginVertical: 0 }]}>
               {todoItem.category}
             </Text>
-          </View>
+          </View> */}
 
           <Ionicons
             name="md-trash-bin-outline"
