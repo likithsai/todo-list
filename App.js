@@ -6,11 +6,13 @@ import {
   View,
   SafeAreaView,
   StatusBar,
-  FlatList
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
 import InputBar from "./src/components/InputBar";
 import TodoItem from "./src/components/TodoItem";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class App extends React.Component {
   constructor() {
@@ -23,6 +25,13 @@ export default class App extends React.Component {
         // { id: 1, title: 'Cook dinner', done: false, date: '1029384756' }
       ],
     };
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem("todoItem").then((value) => {
+        const todoList = JSON.parse(value);
+        this.setState({ todos: todoList });
+    });
   }
 
   addNewTodo() {
@@ -46,7 +55,8 @@ export default class App extends React.Component {
       todos: todos,
       todoInput: "",
     });
-    // this.deleteAndAddItemsToDatabase();
+
+    AsyncStorage.setItem("todoItem", JSON.stringify(todos));
   }
 
   toggleDone(item) {
@@ -60,19 +70,18 @@ export default class App extends React.Component {
     });
 
     this.setState({ todos });
-    // this.deleteAndAddItemsToDatabase();
+    AsyncStorage.setItem("todoItem", JSON.stringify(todos));
   }
 
   removeTodo(item) {
     let todos = this.state.todos;
     todos = todos.filter((todo) => todo.id !== item.id);
     this.setState({ todos });
-    // this.deleteAndAddItemsToDatabase();
+    AsyncStorage.setItem("todoItem", JSON.stringify(todos));;
   }
 
   EmptyListMessage = ({ item }) => {
     return (
-      // Flat List Item
       <View style={styles.emptyListStyle}>
         <Ionicons
           name="albums-outline"
@@ -86,10 +95,9 @@ export default class App extends React.Component {
   };
 
   ListHeader = () => {
-    //View to set in Header
     return (
       <View style={styles.headerStyle}>
-        <View
+        <TouchableOpacity
           style={{
             flexDirection: "row",
             alignItems: "flex-start",
@@ -104,7 +112,7 @@ export default class App extends React.Component {
             style={{ marginRight: 10 }}
           />
           <Text style={[styles.categoryText, { marginVertical: 0 }]}>All</Text>
-        </View>
+        </TouchableOpacity>
         <Text style={styles.footerTextStyle}>
           {this.state.todos.length} items
         </Text>
