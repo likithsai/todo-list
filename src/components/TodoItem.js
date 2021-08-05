@@ -25,7 +25,7 @@ export default class TodoItem extends React.Component {
         onLongPress={() => this.props.toggleDone()}
       >
         <View style={styles.textContainer}>
-          <View style={{ width: "90%" }}>
+          <View style={{ width: "100%" }}>
             <Text
               numberOfLines={2} 
               maxLines={2}
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
-    width: "60%",
+    width: "85%",
   },
   todoItem: {
     width: Dimensions.get("window").width,
