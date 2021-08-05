@@ -6,8 +6,7 @@ import {
   View,
   SafeAreaView,
   StatusBar,
-  FlatList,
-  TouchableOpacity,
+  FlatList
 } from "react-native";
 import InputBar from "./src/components/InputBar";
 import TodoItem from "./src/components/TodoItem";
@@ -89,7 +88,7 @@ export default class App extends React.Component {
   ListHeader = () => {
     //View to set in Header
     return (
-      <TouchableOpacity style={styles.headerStyle}>
+      <View style={styles.headerStyle}>
         <View
           style={{
             flexDirection: "row",
@@ -109,7 +108,7 @@ export default class App extends React.Component {
         <Text style={styles.footerTextStyle}>
           {this.state.todos.length} items
         </Text>
-      </TouchableOpacity>
+      </View>
     );
   };
 
