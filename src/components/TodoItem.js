@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
-    width: "85%",
+    width: "80%",
   },
   todoItem: {
     width: Dimensions.get("window").width,

@@ -12,7 +12,7 @@ import {
 import InputBar from "./src/components/InputBar";
 import TodoItem from "./src/components/TodoItem";
 import { Ionicons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class App extends React.Component {
   constructor() {
@@ -27,14 +27,18 @@ export default class App extends React.Component {
     };
   }
 
-  componentWillMount() {
-    AsyncStorage.getItem("todoItem").then((value) => {
-        const todoList = JSON.parse(value);
-        this.setState({ todos: todoList });
-    });
+  async componentWillMount() {
+    await AsyncStorage.getItem("todoItem")
+      .then((value) => {
+        if (value !== null) {
+          const todoList = JSON.parse(value);
+          this.setState({ todos: todoList });
+        }
+      })
+      .catch((err) => console.log("catch", err));
   }
 
-  addNewTodo() {
+  async addNewTodo() {
     let todos = this.state.todos;
     var today = new Date();
 
@@ -56,10 +60,14 @@ export default class App extends React.Component {
       todoInput: "",
     });
 
-    AsyncStorage.setItem("todoItem", JSON.stringify(todos));
+    try {
+      await AsyncStorage.setItem("todoItem", JSON.stringify(todos));
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  toggleDone(item) {
+  async toggleDone(item) {
     let todos = this.state.todos;
 
     todos = todos.map((todo) => {
@@ -70,14 +78,22 @@ export default class App extends React.Component {
     });
 
     this.setState({ todos });
-    AsyncStorage.setItem("todoItem", JSON.stringify(todos));
+    try {
+      await AsyncStorage.setItem("todoItem", JSON.stringify(todos));
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  removeTodo(item) {
+  async removeTodo(item) {
     let todos = this.state.todos;
     todos = todos.filter((todo) => todo.id !== item.id);
     this.setState({ todos });
-    AsyncStorage.setItem("todoItem", JSON.stringify(todos));;
+    try {
+      await AsyncStorage.setItem("todoItem", JSON.stringify(todos));
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   EmptyListMessage = ({ item }) => {
