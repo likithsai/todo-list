@@ -20,7 +20,7 @@ export default class App extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
-          <StatusBar barStyle="light-content" translucent={true} animated={true} />
+          <StatusBar />
           <MyStacks />
         </NavigationContainer>
       </SafeAreaView>
