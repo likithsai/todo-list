@@ -6,21 +6,13 @@ import MyStacks from "./src/routes/MyStacks";
 export default class App extends React.Component {
   constructor() {
     super();
-
-    this.state = {
-      todoInput: "",
-      todos: [
-        // { id: 0, title: 'Take out the trash', done: false, date: '1029384756' },
-        // { id: 1, title: 'Cook dinner', done: false, date: '1029384756' }
-      ],
-    };
   }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
-          <StatusBar />
+          <StatusBar barStyle="light-content" />
           <MyStacks />
         </NavigationContainer>
       </SafeAreaView>
