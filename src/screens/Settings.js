@@ -47,6 +47,7 @@ export default class Home extends React.Component {
         </View>
         <View style={{ flexDirection: "column", alignItems: "flex-start" }}>
           <TouchableOpacity
+            onPress={() => navigation.push("About") }
             style={{
               backgroundColor: "#fff",
               padding: 25,
