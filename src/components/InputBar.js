@@ -28,7 +28,7 @@ const InputBar = (props) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.settingsHandler}>
           <Ionicons
             name="md-options-outline"
             size={30}
