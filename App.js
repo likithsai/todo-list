@@ -1,11 +1,7 @@
 import React from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-} from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import MyStacks from './src/routes/MyStacks';
+import { StyleSheet, SafeAreaView, StatusBar } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import MyStacks from "./src/routes/MyStacks";
 
 export default class App extends React.Component {
   constructor() {
@@ -23,8 +19,8 @@ export default class App extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" translucent={true} animated={true} />
         <NavigationContainer>
+          <StatusBar barStyle="light-content" translucent={true} animated={true} />
           <MyStacks />
         </NavigationContainer>
       </SafeAreaView>
@@ -36,5 +32,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f0f0f0",
-  }
+  },
 });

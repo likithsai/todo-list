@@ -84,14 +84,12 @@ const styles = StyleSheet.create({
   todoTitleSelected: {
     fontWeight: "bold",
     color: "#000",
-    fontSize: 18,
-    // width: "95%",
+    fontSize: 18
   },
   todoTitleUnselected: {
     fontWeight: "bold",
     color: "#666",
-    fontSize: 18,
-    // width: "95%",
+    fontSize: 18
   },
   boxShadowWithSelected: {
     shadowOffset: { width: 0, height: 1 },
@@ -102,13 +100,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   dateText: {
-    // width: "90%",
     fontSize: 15,
     color: "#aaa",
     marginVertical: 10
   },
   categoryText: {
-    // width: "90%",
     fontSize: 15,
     color: "#aaa"
   },
