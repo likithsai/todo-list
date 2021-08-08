@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   BackHandler,
   TextInput,
+  TouchableOpacityBase,
 } from "react-native";
 import InputBar from "../components/InputBar";
 import TodoItem from "../components/TodoItem";
@@ -23,7 +24,7 @@ export default class Home extends React.Component {
       optionMenuVisible: false,
       addTODOList: false,
       selectedOptionMenu: "",
-      searchInput: '',
+      searchInput: "",
       todoInput: "",
       todos: [
         // { id: 0, title: 'Take out the trash', done: false, date: '1029384756' },
@@ -213,7 +214,6 @@ export default class Home extends React.Component {
               onChangeText={(todoInput) => this.setState({ todoInput })}
               value={this.state.todoInput}
               placeholder="Items to Add"
-              onSubmitEditing={() => this.addNewTodo()}
             />
           </View>
           <View
@@ -254,20 +254,37 @@ export default class Home extends React.Component {
           </View>
         </BottomSheet>
 
-        {/* Bottomsheet */}
+        {/* Option Menu */}
         <BottomSheet visible={this.state.optionMenuVisible}>
-          <View style={{ marginVertical: 10 }}>
-            <Text
-              numberOfLines={2}
-              maxLines={2}
-              ellipsizeMode="tail"
-              style={{ fontWeight: "bold" }}
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <View style={{ marginVertical: 10 }}>
+              <Text
+                numberOfLines={2}
+                maxLines={2}
+                ellipsizeMode="tail"
+                style={{ fontWeight: "bold" }}
+              >
+                {this.state.selectedOptionMenu.title}
+              </Text>
+              <Text style={{ marginTop: 5 }}>
+                {this.state.selectedOptionMenu.date}
+              </Text>
+            </View>
+            <TouchableOpacity
+              onPress={() =>
+                this.setState({
+                  optionMenuVisible: !this.state.optionMenuVisible,
+                })
+              }
             >
-              {this.state.selectedOptionMenu.title}
-            </Text>
-            <Text style={{ marginTop: 5 }}>
-              {this.state.selectedOptionMenu.date}
-            </Text>
+              <Ionicons name="close-outline" size={30} color="#555" />
+            </TouchableOpacity>
           </View>
           <View>
             <TouchableOpacity
@@ -281,7 +298,7 @@ export default class Home extends React.Component {
                 name="brush-outline"
                 size={25}
                 color="#555"
-                style={{ marginLeft: 10, marginRight: 20 }}
+                style={{ marginRight: 20 }}
               />
               <Text>Edit</Text>
             </TouchableOpacity>
@@ -303,7 +320,7 @@ export default class Home extends React.Component {
                 name="trash-bin-outline"
                 size={25}
                 color="#555"
-                style={{ marginLeft: 10, marginRight: 20 }}
+                style={{ marginRight: 20 }}
               />
               <Text>Delete</Text>
             </TouchableOpacity>
