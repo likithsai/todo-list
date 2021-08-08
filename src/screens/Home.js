@@ -1,12 +1,13 @@
 import React from "react";
 import {
-  Alert,
   StyleSheet,
   Text,
   View,
   SafeAreaView,
   FlatList,
   TouchableOpacity,
+  BackHandler,
+  TextInput,
 } from "react-native";
 import InputBar from "../components/InputBar";
 import TodoItem from "../components/TodoItem";
@@ -20,7 +21,9 @@ export default class Home extends React.Component {
 
     this.state = {
       optionMenuVisible: false,
+      addTODOList: false,
       selectedOptionMenu: "",
+      searchInput: '',
       todoInput: "",
       todos: [
         // { id: 0, title: 'Take out the trash', done: false, date: '1029384756' },
@@ -38,7 +41,18 @@ export default class Home extends React.Component {
         }
       })
       .catch((err) => console.log("catch", err));
+
+    this.backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.backAction
+    );
   }
+
+  backAction = () => {
+    if (this.state.optionMenuVisible) {
+      this.setState({ optionMenuVisible: !this.state.optionMenuVisible });
+    }
+  };
 
   async addNewTodo() {
     let todos = this.state.todos;
@@ -144,19 +158,11 @@ export default class Home extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <InputBar
-          addNewTodo={() => this.addNewTodo()}
-          addListHandler={() =>
-            Alert.alert("Alert Title", "Current Color Scheme:", [
-              {
-                text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel",
-              },
-              { text: "OK", onPress: () => console.log("OK Pressed") },
-            ])
-          }
-          textChange={(todoInput) => this.setState({ todoInput })}
-          todoInput={this.state.todoInput}
+          // addNewTodo={() => this.addNewTodo()}
+          addListHandler={() => this.setState({ addTODOList: true })}
+          textChange={(todoInput) => this.setState({ searchInput: todoInput })}
+          // todoInput={this.state.todoInput}
+          searchInput={this.state.searchInput}
           settingsHandler={() => navigation.push("Settings")}
         />
 
@@ -185,43 +191,123 @@ export default class Home extends React.Component {
           stickyHeaderIndices={[0]}
         />
 
+        {/* Add todo list */}
+        <BottomSheet visible={this.state.addTODOList}>
+          <View style={{ marginVertical: 10 }}>
+            <Text
+              numberOfLines={2}
+              maxLines={2}
+              ellipsizeMode="tail"
+              style={{ fontWeight: "bold" }}
+            >
+              Add TODO List
+            </Text>
+          </View>
+          <View>
+            <TextInput
+              style={{
+                fontSize: 16,
+                paddingVertical: 15,
+                color: "#555",
+              }}
+              onChangeText={(todoInput) => this.setState({ todoInput })}
+              value={this.state.todoInput}
+              placeholder="Items to Add"
+              onSubmitEditing={() => this.addNewTodo()}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({ addTODOList: !this.state.addTODOList });
+                this.addNewTodo();
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <Text>Add</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({
+                  addTODOList: !this.state.addTODOList,
+                });
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <Text>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </BottomSheet>
+
         {/* Bottomsheet */}
         <BottomSheet visible={this.state.optionMenuVisible}>
-          <TouchableOpacity
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              paddingVertical: 10,
-            }}
-          >
-            <Ionicons
-              name="brush-outline"
-              size={25}
-              color="#555"
-              style={{ marginLeft: 10, marginRight: 20 }}
-            />
-            <Text>Edit</Text>
-          </TouchableOpacity>
+          <View style={{ marginVertical: 10 }}>
+            <Text
+              numberOfLines={2}
+              maxLines={2}
+              ellipsizeMode="tail"
+              style={{ fontWeight: "bold" }}
+            >
+              {this.state.selectedOptionMenu.title}
+            </Text>
+            <Text style={{ marginTop: 5 }}>
+              {this.state.selectedOptionMenu.date}
+            </Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <Ionicons
+                name="brush-outline"
+                size={25}
+                color="#555"
+                style={{ marginLeft: 10, marginRight: 20 }}
+              />
+              <Text>Edit</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              this.setState({ optionMenuVisible: !this.state.optionMenuVisible })
-              this.removeTodo(this.state.selectedOptionMenu);
-            }}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              paddingVertical: 10,
-            }}
-          >
-            <Ionicons
-              name="trash-bin-outline"
-              size={25}
-              color="#555"
-              style={{ marginLeft: 10, marginRight: 20 }}
-            />
-            <Text>Delete</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({
+                  optionMenuVisible: !this.state.optionMenuVisible,
+                });
+                this.removeTodo(this.state.selectedOptionMenu);
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <Ionicons
+                name="trash-bin-outline"
+                size={25}
+                color="#555"
+                style={{ marginLeft: 10, marginRight: 20 }}
+              />
+              <Text>Delete</Text>
+            </TouchableOpacity>
+          </View>
         </BottomSheet>
       </SafeAreaView>
     );

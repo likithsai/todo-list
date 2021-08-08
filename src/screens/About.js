@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TouchableOpacity, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import HeaderBarWithBack from "../components/HeaderBarWithBack";
 
 export default class About extends React.Component {
@@ -11,7 +11,7 @@ export default class About extends React.Component {
     const { navigation } = this.props;
 
     return (
-      <View>
+      <View style={styles.container}>
         <HeaderBarWithBack headerText = "About" backButtonHandler={() => navigation.pop()} />
         <View
           style={{
@@ -31,3 +31,13 @@ export default class About extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 15,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+});
+

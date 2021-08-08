@@ -11,12 +11,18 @@ import { Ionicons } from "@expo/vector-icons";
 const InputBar = (props) => {
   return (
     <View style={styles.inputContainer}>
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         onChangeText={(todoInput) => props.textChange(todoInput)}
         value={props.todoInput}
-        placeholder="Items to Add"
+        placeholder="Search Items"
         onSubmitEditing={props.addNewTodo}
+      /> */}
+      <TextInput
+        style={styles.input}
+        onChangeText={(todoInput) => props.textChange(todoInput)}
+        value={props.searchInput}
+        placeholder="Search Items"
       />
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity onPress={props.addListHandler}>
