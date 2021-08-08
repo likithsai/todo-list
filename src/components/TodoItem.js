@@ -6,7 +6,6 @@ import {
   Dimensions,
   View,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
 export default class TodoItem extends React.Component {
   constructor(props) {
@@ -22,6 +21,7 @@ export default class TodoItem extends React.Component {
           styles.todoItem,
           todoItem.done ? styles.boxShadowWithSelected : "",
         ]}
+        onPress={() => this.props.onItemClick() }
         onLongPress={() => this.props.toggleDone()}
       >
         <View style={styles.textContainer}>
@@ -52,15 +52,6 @@ export default class TodoItem extends React.Component {
             </View>
           </View>
         </View>
-
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
-          <Ionicons
-            name="md-trash-bin-outline"
-            size={30}
-            color="#666666"
-            onPress={() => this.props.removeTodo()}
-          />
-        </View>
       </TouchableOpacity>
     );
   }
@@ -70,7 +61,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
-    width: "80%",
+    width: "100%",
   },
   todoItem: {
     width: Dimensions.get("window").width,

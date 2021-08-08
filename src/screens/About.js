@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Dimensions } from "react-native";
 import HeaderBarWithBack from "../components/HeaderBarWithBack";
 
 export default class About extends React.Component {
@@ -16,6 +16,7 @@ export default class About extends React.Component {
         <View
           style={{
             flex: 1,
+            height: Dimensions.get('window').height,
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center"

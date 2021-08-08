@@ -12,12 +12,15 @@ import InputBar from "../components/InputBar";
 import TodoItem from "../components/TodoItem";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import BottomSheet from "../components/BottomSheet";
 
 export default class Home extends React.Component {
   constructor() {
     super();
 
     this.state = {
+      optionMenuVisible: false,
+      selectedOptionMenu: "",
       todoInput: "",
       todos: [
         // { id: 0, title: 'Take out the trash', done: false, date: '1029384756' },
@@ -143,7 +146,7 @@ export default class Home extends React.Component {
         <InputBar
           addNewTodo={() => this.addNewTodo()}
           addListHandler={() =>
-            Alert.alert("Alert Title", "My Alert Msg", [
+            Alert.alert("Alert Title", "Current Color Scheme:", [
               {
                 text: "Cancel",
                 onPress: () => console.log("Cancel Pressed"),
@@ -154,7 +157,7 @@ export default class Home extends React.Component {
           }
           textChange={(todoInput) => this.setState({ todoInput })}
           todoInput={this.state.todoInput}
-          settingsHandler={() => navigation.push("Settings") }
+          settingsHandler={() => navigation.push("Settings")}
         />
 
         <FlatList
@@ -167,8 +170,13 @@ export default class Home extends React.Component {
             return (
               <TodoItem
                 todoItem={item}
+                onItemClick={() => {
+                  this.setState({ selectedOptionMenu: item });
+                  this.setState({
+                    optionMenuVisible: !this.state.optionMenuVisible,
+                  });
+                }}
                 toggleDone={() => this.toggleDone(item)}
-                removeTodo={() => this.removeTodo(item)}
               />
             );
           }}
@@ -176,6 +184,45 @@ export default class Home extends React.Component {
           ListHeaderComponent={this.ListHeader}
           stickyHeaderIndices={[0]}
         />
+
+        {/* Bottomsheet */}
+        <BottomSheet visible={this.state.optionMenuVisible}>
+          <TouchableOpacity
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              paddingVertical: 10,
+            }}
+          >
+            <Ionicons
+              name="brush-outline"
+              size={25}
+              color="#555"
+              style={{ marginLeft: 10, marginRight: 20 }}
+            />
+            <Text>Edit</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.setState({ optionMenuVisible: !this.state.optionMenuVisible })
+              this.removeTodo(this.state.selectedOptionMenu);
+            }}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              paddingVertical: 10,
+            }}
+          >
+            <Ionicons
+              name="trash-bin-outline"
+              size={25}
+              color="#555"
+              style={{ marginLeft: 10, marginRight: 20 }}
+            />
+            <Text>Delete</Text>
+          </TouchableOpacity>
+        </BottomSheet>
       </SafeAreaView>
     );
   }
@@ -185,10 +232,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f0f0f0",
-  },
-  statusbar: {
-    backgroundColor: "#FFCE00",
-    height: 20,
   },
   emptyListStyle: {
     flex: 1,
@@ -203,9 +246,11 @@ const styles = StyleSheet.create({
   headerStyle: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: 25,
+    marginHorizontal: 20,
+    paddingHorizontal: 10,
     marginBottom: 10,
     alignItems: "center",
+    backgroundColor: "#f0f0f0",
   },
   footerTextStyle: {
     color: "#666",

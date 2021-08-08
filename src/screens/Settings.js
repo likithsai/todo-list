@@ -4,7 +4,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Dimensions,
+  Dimensions
 } from "react-native";
 import HeaderBarWithBack from "../components/HeaderBarWithBack";
 
