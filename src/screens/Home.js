@@ -263,10 +263,10 @@ export default class Home extends React.Component {
               justifyContent: "space-between",
             }}
           >
-            <View style={{ marginVertical: 10 }}>
+            <View style={{ marginVertical: 10, width: '80%' }}>
               <Text
-                numberOfLines={2}
-                maxLines={2}
+                numberOfLines={1}
+                maxLines={1}
                 ellipsizeMode="tail"
                 style={{ fontWeight: "bold" }}
               >

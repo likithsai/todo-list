@@ -16,8 +16,6 @@ export default class About extends React.Component {
         <View
           style={{
             flex: 1,
-            height: Dimensions.get('window').height,
-            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center"
           }}
