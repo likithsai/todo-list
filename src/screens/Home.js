@@ -21,6 +21,7 @@ export default class Home extends React.Component {
     super();
 
     this.state = {
+      query: "",
       optionMenuVisible: false,
       addTODOList: false,
       selectedOptionMenu: "",
@@ -30,15 +31,31 @@ export default class Home extends React.Component {
         // { id: 0, title: 'Take out the trash', done: false, date: '1029384756' },
         // { id: 1, title: 'Cook dinner', done: false, date: '1029384756' }
       ],
+      filteredTodos: [],
     };
   }
+
+  searchHandler = (queryText) => {
+    if (queryText) {
+      const newData = this.state.todos.filter(function (item) {
+        const itemData = item.title
+          ? item.title.toUpperCase()
+          : "".toUpperCase();
+        const textData = queryText.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      this.state.filteredTodos = newData;
+    } else {
+      this.state.filteredTodos = this.state.todos;
+    }
+  };
 
   async componentWillMount() {
     await AsyncStorage.getItem("todoItem")
       .then((value) => {
         if (value !== null) {
           const todoList = JSON.parse(value);
-          this.setState({ todos: todoList });
+          this.setState({ todos: todoList, filteredTodos: todoList });
         }
       })
       .catch((err) => console.log("catch", err));
@@ -74,6 +91,7 @@ export default class Home extends React.Component {
 
     this.setState({
       todos: todos,
+      filteredTodos: todos,
       todoInput: "",
     });
 
@@ -94,7 +112,7 @@ export default class Home extends React.Component {
       return todo;
     });
 
-    this.setState({ todos });
+    this.setState({ todos, filteredTodos: todos });
     try {
       await AsyncStorage.setItem("todoItem", JSON.stringify(todos));
     } catch (e) {
@@ -105,7 +123,7 @@ export default class Home extends React.Component {
   async removeTodo(item) {
     let todos = this.state.todos;
     todos = todos.filter((todo) => todo.id !== item.id);
-    this.setState({ todos });
+    this.setState({ todos, filteredTodos: todos });
     try {
       await AsyncStorage.setItem("todoItem", JSON.stringify(todos));
     } catch (e) {
@@ -161,7 +179,10 @@ export default class Home extends React.Component {
         <InputBar
           // addNewTodo={() => this.addNewTodo()}
           addListHandler={() => this.setState({ addTODOList: true })}
-          textChange={(todoInput) => this.setState({ searchInput: todoInput })}
+          textChange={(todoInput) => {
+            this.setState({ searchInput: todoInput });
+            this.searchHandler(todoInput);
+          }}
           // todoInput={this.state.todoInput}
           searchInput={this.state.searchInput}
           settingsHandler={() => navigation.push("Settings")}
@@ -169,9 +190,9 @@ export default class Home extends React.Component {
 
         <FlatList
           contentContainerStyle={{ flexGrow: 1 }}
-          data={this.state.todos}
+          data={this.state.filteredTodos}
           extraData={this.state}
-          onMoveEnd={(todos) => this.setState({ todos })}
+          onMoveEnd={(todos) => this.setState({ todos, filteredTodos: todos })}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => {
             return (
@@ -263,7 +284,7 @@ export default class Home extends React.Component {
               justifyContent: "space-between",
             }}
           >
-            <View style={{ marginVertical: 10, width: '80%' }}>
+            <View style={{ marginVertical: 10, width: "80%" }}>
               <Text
                 numberOfLines={1}
                 maxLines={1}
