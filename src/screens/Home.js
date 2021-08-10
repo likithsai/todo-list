@@ -27,6 +27,7 @@ export default class Home extends React.Component {
       selectedOptionMenu: "",
       searchInput: "",
       todoInput: "",
+      todoDescription: "",
       todos: [
         // { id: 0, title: 'Take out the trash', done: false, date: '1029384756' },
         // { id: 1, title: 'Cook dinner', done: false, date: '1029384756' }
@@ -79,6 +80,7 @@ export default class Home extends React.Component {
     todos.unshift({
       id: todos.length + 1,
       title: this.state.todoInput,
+      description: this.state.todoDescription,
       done: false,
       selected: false,
       date: today.toLocaleDateString(undefined, {
@@ -215,12 +217,24 @@ export default class Home extends React.Component {
 
         {/* Add todo list */}
         <BottomSheet visible={this.state.addTODOList}>
-          <View style={{ marginVertical: 10 }}>
+          <View
+            style={{
+              marginTop: 10,
+              marginBottom: 20,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Ionicons
+              name="add"
+              size={30}
+              style={{ marginRight: 5, color: "#4B0082" }}
+            />
             <Text
               numberOfLines={2}
               maxLines={2}
               ellipsizeMode="tail"
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", color: "#4B0082" }}
             >
               Add TODO List
             </Text>
@@ -231,10 +245,27 @@ export default class Home extends React.Component {
                 fontSize: 16,
                 paddingVertical: 15,
                 color: "#555",
+                fontWeight: "bold",
               }}
               onChangeText={(todoInput) => this.setState({ todoInput })}
               value={this.state.todoInput}
-              placeholder="Items to Add"
+              placeholder="Todo Title"
+            />
+            <TextInput
+              style={{
+                fontSize: 16,
+                paddingVertical: 15,
+                color: "#555",
+                fontWeight: "bold",
+              }}
+              onChangeText={(todoInput) =>
+                this.setState({ todoDescription: todoInput })
+              }
+              value={this.state.todoDescription}
+              multiline={true}
+              numberOfLines={3}
+              value={this.state.todoDescription}
+              placeholder="Todo Content"
             />
           </View>
           <View
@@ -255,7 +286,7 @@ export default class Home extends React.Component {
                 paddingVertical: 10,
               }}
             >
-              <Text>Add</Text>
+              <Text style={{ fontWeight: "bold", color: "#4B0082" }}>Add</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -293,9 +324,9 @@ export default class Home extends React.Component {
               >
                 {this.state.selectedOptionMenu.title}
               </Text>
-              <Text style={{ marginTop: 5 }}>
+              {/* <Text style={{ marginTop: 5 }}>
                 {this.state.selectedOptionMenu.date}
-              </Text>
+              </Text> */}
             </View>
             <TouchableOpacity
               onPress={() =>
@@ -308,6 +339,28 @@ export default class Home extends React.Component {
             </TouchableOpacity>
           </View>
           <View>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({
+                  optionMenuVisible: !this.state.optionMenuVisible,
+                });
+                this.toggleDone(this.state.selectedOptionMenu)
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+            >
+              <Ionicons
+                name="checkmark-circle-outline"
+                size={25}
+                color="#555"
+                style={{ marginRight: 20 }}
+              />
+              <Text>{(!this.state.selectedOptionMenu.done) ? 'Highlight Selected' : 'Unhighlight Selected'}</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
               style={{
                 flexDirection: "row",

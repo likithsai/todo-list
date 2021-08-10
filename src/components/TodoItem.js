@@ -21,15 +21,15 @@ export default class TodoItem extends React.Component {
           styles.todoItem,
           todoItem.done ? styles.boxShadowWithSelected : "",
         ]}
-        onPress={() => this.props.onItemClick() }
-        onLongPress={() => this.props.toggleDone()}
+        // onPress={() => this.props.toggleDone()}
+        onLongPress={() => this.props.onItemClick()}
       >
         <View style={styles.textContainer}>
           <View style={{ width: "100%" }}>
             <Text
-              numberOfLines={2} 
+              numberOfLines={2}
               maxLines={2}
-              ellipsizeMode='tail'
+              ellipsizeMode="tail"
               style={
                 todoItem.done
                   ? styles.todoTitleSelected
@@ -38,6 +38,21 @@ export default class TodoItem extends React.Component {
             >
               {todoItem.title}
             </Text>
+
+            <View style={{ flexDirection: "row" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                <Text numberOfLines={3} maxLines={3} ellipsizeMode="head" style={styles.dateText}>
+                  {todoItem.description}
+                </Text>
+              </View>
+            </View>
 
             <View style={{ flexDirection: "row" }}>
               <View
@@ -74,13 +89,13 @@ const styles = StyleSheet.create({
   },
   todoTitleSelected: {
     fontWeight: "bold",
-    color: "#000",
-    fontSize: 18
+    color: "#4B0082",
+    fontSize: 18,
   },
   todoTitleUnselected: {
     fontWeight: "bold",
-    color: "#666",
-    fontSize: 18
+    color: "rgba(75, 0, 130, 0.6)",
+    fontSize: 18,
   },
   boxShadowWithSelected: {
     shadowOffset: { width: 0, height: 1 },
@@ -93,11 +108,11 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 15,
     color: "#aaa",
-    marginVertical: 10
+    marginVertical: 10,
   },
   categoryText: {
     fontSize: 15,
-    color: "#aaa"
+    color: "#aaa",
   },
   categoryText: {
     marginVertical: 10,
