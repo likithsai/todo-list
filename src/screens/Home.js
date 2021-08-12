@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   BackHandler,
   TextInput,
-  TouchableOpacityBase,
+  Share,
 } from "react-native";
 import InputBar from "../components/InputBar";
 import TodoItem from "../components/TodoItem";
@@ -130,6 +130,17 @@ export default class Home extends React.Component {
       await AsyncStorage.setItem("todoItem", JSON.stringify(todos));
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async shareText(titleM, messageM) {
+    try {
+      await Share.share({
+        title: titleM,
+        message: messageM,
+      });
+    } catch (error) {
+      console.log(error.message);
     }
   }
 
@@ -344,7 +355,7 @@ export default class Home extends React.Component {
                 this.setState({
                   optionMenuVisible: !this.state.optionMenuVisible,
                 });
-                this.toggleDone(this.state.selectedOptionMenu)
+                this.toggleDone(this.state.selectedOptionMenu);
               }}
               style={{
                 flexDirection: "row",
@@ -358,7 +369,11 @@ export default class Home extends React.Component {
                 color="#555"
                 style={{ marginRight: 20 }}
               />
-              <Text>{(!this.state.selectedOptionMenu.done) ? 'Highlight Selected' : 'Unhighlight Selected'}</Text>
+              <Text>
+                {!this.state.selectedOptionMenu.done
+                  ? "Highlight Selected"
+                  : "Unhighlight Selected"}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -397,6 +412,28 @@ export default class Home extends React.Component {
                 style={{ marginRight: 20 }}
               />
               <Text>Delete</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 10,
+              }}
+              onPress={() => {
+                this.shareText(
+                  this.state.selectedOptionMenu.title,
+                  this.state.selectedOptionMenu.description
+                );
+              }}
+            >
+              <Ionicons
+                name="share-social-outline"
+                size={25}
+                color="#555"
+                style={{ marginRight: 20 }}
+              />
+              <Text>Share</Text>
             </TouchableOpacity>
           </View>
         </BottomSheet>

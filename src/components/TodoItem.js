@@ -44,7 +44,7 @@ export default class TodoItem extends React.Component {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "center",
+                  justifyContent: "flex-start",
                   width: "100%",
                 }}
               >
