@@ -21,8 +21,8 @@ export default class TodoItem extends React.Component {
           styles.todoItem,
           todoItem.done ? styles.boxShadowWithSelected : "",
         ]}
-        // onPress={() => this.props.toggleDone()}
-        onLongPress={() => this.props.onItemClick()}
+        onPress={() => this.props.onItemClick()}
+        onLongPress={() => this.props.onItemLongClick()}
       >
         <View style={styles.textContainer}>
           <View style={{ width: "100%" }}>

@@ -9,6 +9,7 @@ import {
   BackHandler,
   TextInput,
   Share,
+  Dimensions,
 } from "react-native";
 import InputBar from "../components/InputBar";
 import TodoItem from "../components/TodoItem";
@@ -205,13 +206,16 @@ export default class Home extends React.Component {
           contentContainerStyle={{ flexGrow: 1 }}
           data={this.state.filteredTodos}
           extraData={this.state}
-          onMoveEnd={(todos) => this.setState({ todos, filteredTodos: todos })}
+          // onMoveEnd={(todos) => this.setState({ todos, filteredTodos: todos })}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => {
             return (
               <TodoItem
                 todoItem={item}
-                onItemClick={() => {
+                onItemClick = {() => {
+                  navigation.navigate('TodoitemDetails', {itemData: item});
+                }}
+                onItemLongClick={() => {
                   this.setState({ selectedOptionMenu: item });
                   this.setState({
                     optionMenuVisible: !this.state.optionMenuVisible,
@@ -250,13 +254,14 @@ export default class Home extends React.Component {
               Add TODO List
             </Text>
           </View>
-          <View>
+          <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
             <TextInput
               style={{
                 fontSize: 16,
                 paddingVertical: 15,
                 color: "#555",
                 fontWeight: "bold",
+                width: '100%'
               }}
               onChangeText={(todoInput) => this.setState({ todoInput })}
               value={this.state.todoInput}
@@ -268,6 +273,7 @@ export default class Home extends React.Component {
                 paddingVertical: 15,
                 color: "#555",
                 fontWeight: "bold",
+                width: '100%'
               }}
               onChangeText={(todoInput) =>
                 this.setState({ todoDescription: todoInput })
