@@ -48,7 +48,7 @@ export default class TodoItem extends React.Component {
                   width: "100%",
                 }}
               >
-                <Text numberOfLines={3} maxLines={3} ellipsizeMode="head" style={styles.dateText}>
+                <Text numberOfLines={3} maxLines={3} ellipsizeMode="tail" style={styles.dateText}>
                   {todoItem.description}
                 </Text>
               </View>

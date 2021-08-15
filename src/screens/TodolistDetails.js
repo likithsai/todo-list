@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import HeaderBarWithBack from "../components/HeaderBarWithBack";
 
 export default class TodolistDetails extends React.Component {
@@ -12,17 +12,31 @@ export default class TodolistDetails extends React.Component {
 
     return (
       <View style={styles.container}>
-        <HeaderBarWithBack headerText = "" backButtonHandler={() => navigation.pop()} />
+        <HeaderBarWithBack
+          headerText={route.params.itemData.title}
+          backButtonHandler={() => navigation.pop()}
+        />
         <View
           style={{
             flex: 1,
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
-          <Text style={{ fontSize: 15, marginVertical: 10, flexDirection: 'row', alignItems: 'center', height: '100%' }}>
-            {JSON.stringify(route.params)}
-          </Text>
+          <ScrollView>
+            <Text
+              style={{
+                fontSize: 15,
+                marginVertical: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                height: "100%",
+                textAlign: "justify"
+              }}
+            >
+              {route.params.itemData.description}
+            </Text>
+          </ScrollView>
         </View>
       </View>
     );
@@ -33,8 +47,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: "flex-start",
+    height: "100%",
   },
 });
-
