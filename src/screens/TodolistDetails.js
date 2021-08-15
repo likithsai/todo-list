@@ -30,6 +30,7 @@ export default class TodolistDetails extends React.Component {
                 marginVertical: 10,
                 flexDirection: "row",
                 alignItems: "center",
+                justifyContent: "center",
                 height: "100%",
                 textAlign: "justify"
               }}

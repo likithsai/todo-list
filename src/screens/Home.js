@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
@@ -8,7 +7,6 @@ import {
   TouchableOpacity,
   BackHandler,
   Share,
-  useColorScheme,
   Appearance,
 } from "react-native";
 import InputBar from "../components/InputBar";
@@ -17,6 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet from "../components/BottomSheet";
 import AddEditTodoModal from "../components/AddEditTodoModal";
+import { lightTheme, darkTheme } from "../themes/Themes";
 
 export default class Home extends React.Component {
   constructor() {
@@ -30,6 +29,7 @@ export default class Home extends React.Component {
       selectedOptionMenu: "",
       searchInput: "",
       todoInput: "",
+      colorScheme: "light",
       todos: [
         // { id: 0, title: 'Take out the trash', done: false, date: '1029384756' },
         // { id: 1, title: 'Cook dinner', done: false, date: '1029384756' }
@@ -54,6 +54,9 @@ export default class Home extends React.Component {
   };
 
   async componentWillMount() {
+    //  Set theme color for the application
+    this.setState({ colorScheme: Appearance.getColorScheme() });
+
     await AsyncStorage.getItem("todoItem")
       .then((value) => {
         if (value !== null) {
@@ -148,21 +151,41 @@ export default class Home extends React.Component {
 
   EmptyListMessage = ({ item }) => {
     return (
-      <View style={styles.emptyListStyle}>
+      <View
+        style={
+          this.state.colorScheme === "light"
+            ? lightTheme.emptyListStyle
+            : darkTheme.emptyListStyle
+        }
+      >
         <Ionicons
           name="albums-outline"
           size={60}
           color="#555"
           style={{ marginVertical: 5 }}
         />
-        <Text style={styles.emptyMessageStyle}>The list is empty</Text>
+        <Text
+          style={
+            this.state.colorScheme === "light"
+              ? lightTheme.emptyMessageStyle
+              : darkTheme.emptyListStyle
+          }
+        >
+          The list is empty
+        </Text>
       </View>
     );
   };
 
   ListHeader = () => {
     return (
-      <View style={styles.headerStyle}>
+      <View
+        style={
+          this.state.colorScheme === "light"
+            ? lightTheme.headerStyle
+            : darkTheme.headerStyle
+        }
+      >
         <TouchableOpacity
           style={{
             flexDirection: "row",
@@ -177,9 +200,24 @@ export default class Home extends React.Component {
             color="#666666"
             style={{ marginRight: 10 }}
           />
-          <Text style={[styles.categoryText, { marginVertical: 0 }]}>All</Text>
+          <Text
+            style={[
+              this.state.colorScheme === "light"
+                ? lightTheme.categoryText
+                : darkTheme.categoryText,
+              { marginVertical: 0 },
+            ]}
+          >
+            All
+          </Text>
         </TouchableOpacity>
-        <Text style={styles.footerTextStyle}>
+        <Text
+          style={
+            this.state.colorScheme === "light"
+              ? lightTheme.footerTextStyle
+              : darkTheme.footerTextStyle
+          }
+        >
           {this.state.todos.length} items
         </Text>
       </View>
@@ -188,10 +226,16 @@ export default class Home extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const colorScheme = Appearance.getColorScheme();
+    // const colorScheme = Appearance.getColorScheme();
 
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView
+        style={
+          this.state.colorScheme === "light"
+            ? lightTheme.container
+            : darkTheme.container
+        }
+      >
         <InputBar
           addListHandler={() => this.setState({ addTODOList: true })}
           textChange={(todoInput) => {
@@ -393,32 +437,3 @@ export default class Home extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f0f0f0",
-  },
-  emptyListStyle: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  emptyMessageStyle: {
-    textAlign: "center",
-    color: "#555",
-    fontSize: 18,
-  },
-  headerStyle: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 20,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-    alignItems: "center",
-    backgroundColor: "#f0f0f0",
-  },
-  footerTextStyle: {
-    color: "#666",
-  },
-});
