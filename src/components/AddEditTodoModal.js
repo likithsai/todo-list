@@ -6,8 +6,8 @@ export default class AddEditTodoModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todoTitle: "",
-      todoDescription: "",
+      todoTitle: '',
+      todoDescription: JSON.stringify(this.props),
     };
   }
 
@@ -43,7 +43,7 @@ export default class AddEditTodoModal extends React.Component {
             onChangeText={(todoInput) => {
               this.setState({ todoTitle: todoInput });
             }}
-            value={this.state.todoInput}
+            value={this.state.todoTitle}
             placeholder={this.props.TODOTitlePlaceholder}
           />
           <TextInput
@@ -97,7 +97,13 @@ export default class AddEditTodoModal extends React.Component {
               paddingVertical: 10,
             }}
           >
-            <Text>Cancel</Text>
+            <Text
+              style={{
+                fontWeight: "bold",
+              }}
+            >
+              Cancel
+            </Text>
           </TouchableOpacity>
         </View>
       </BottomSheet>

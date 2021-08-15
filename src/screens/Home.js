@@ -233,7 +233,7 @@ export default class Home extends React.Component {
           TODOTitlePlaceholder="Title"
           TODOContentPlaceholder="Description"
           addEditButton="Add"
-          onLeftButtonPress={(title, description) => {
+          onAddEditButtonPress={(title, description) => {
             this.setState({ addTODOList: !this.state.addTODOList });
             this.addNewTodo(title, description);
           }}
@@ -251,9 +251,10 @@ export default class Home extends React.Component {
           TODOTitlePlaceholder="Title"
           TODOContentPlaceholder="Description"
           addEditButton="Edit"
+          selectedTODOData={ this.state.selectedOptionMenu }
           onAddEditButtonPress={(title, description) => {
-            this.setState({ addTODOList: !this.state.addTODOList });
-            this.addNewTodo(title, description);
+            this.setState({ editTODOList: !this.state.editTODOList });
+            // this.addNewTodo(title, description);
           }}
           onCancelButtonPress = {() => {
             this.setState({
