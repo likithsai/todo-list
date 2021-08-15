@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   BackHandler,
   Share,
+  useColorScheme,
+  Appearance,
 } from "react-native";
 import InputBar from "../components/InputBar";
 import TodoItem from "../components/TodoItem";
@@ -186,6 +188,7 @@ export default class Home extends React.Component {
 
   render() {
     const { navigation } = this.props;
+    const colorScheme = Appearance.getColorScheme();
 
     return (
       <SafeAreaView style={styles.container}>
@@ -237,7 +240,7 @@ export default class Home extends React.Component {
             this.setState({ addTODOList: !this.state.addTODOList });
             this.addNewTodo(title, description);
           }}
-          onCancelButtonPress = {() => {
+          onCancelButtonPress={() => {
             this.setState({
               addTODOList: !this.state.addTODOList,
             });
@@ -251,12 +254,12 @@ export default class Home extends React.Component {
           TODOTitlePlaceholder="Title"
           TODOContentPlaceholder="Description"
           addEditButton="Edit"
-          selectedTODOData={ this.state.selectedOptionMenu }
+          selectedTODOData={this.state.selectedOptionMenu}
           onAddEditButtonPress={(title, description) => {
             this.setState({ editTODOList: !this.state.editTODOList });
             // this.addNewTodo(title, description);
           }}
-          onCancelButtonPress = {() => {
+          onCancelButtonPress={() => {
             this.setState({
               editTODOList: !this.state.editTODOList,
             });
