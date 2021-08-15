@@ -7,15 +7,14 @@ import {
   FlatList,
   TouchableOpacity,
   BackHandler,
-  TextInput,
   Share,
-  Dimensions,
 } from "react-native";
 import InputBar from "../components/InputBar";
 import TodoItem from "../components/TodoItem";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet from "../components/BottomSheet";
+import AddEditTodoModal from "../components/AddEditTodoModal";
 
 export default class Home extends React.Component {
   constructor() {
@@ -25,10 +24,10 @@ export default class Home extends React.Component {
       query: "",
       optionMenuVisible: false,
       addTODOList: false,
+      editTODOList: false,
       selectedOptionMenu: "",
       searchInput: "",
       todoInput: "",
-      todoDescription: "",
       todos: [
         // { id: 0, title: 'Take out the trash', done: false, date: '1029384756' },
         // { id: 1, title: 'Cook dinner', done: false, date: '1029384756' }
@@ -74,14 +73,14 @@ export default class Home extends React.Component {
     }
   };
 
-  async addNewTodo() {
+  async addNewTodo(TODOTitle, TODOContent) {
     let todos = this.state.todos;
     var today = new Date();
 
     todos.unshift({
       id: todos.length + 1,
-      title: this.state.todoInput,
-      description: this.state.todoDescription,
+      title: TODOTitle,
+      description: TODOContent,
       done: false,
       selected: false,
       date: today.toLocaleDateString(undefined, {
@@ -191,13 +190,11 @@ export default class Home extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <InputBar
-          // addNewTodo={() => this.addNewTodo()}
           addListHandler={() => this.setState({ addTODOList: true })}
           textChange={(todoInput) => {
             this.setState({ searchInput: todoInput });
             this.searchHandler(todoInput);
           }}
-          // todoInput={this.state.todoInput}
           searchInput={this.state.searchInput}
           settingsHandler={() => navigation.push("Settings")}
         />
@@ -206,14 +203,13 @@ export default class Home extends React.Component {
           contentContainerStyle={{ flexGrow: 1 }}
           data={this.state.filteredTodos}
           extraData={this.state}
-          // onMoveEnd={(todos) => this.setState({ todos, filteredTodos: todos })}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => {
             return (
               <TodoItem
                 todoItem={item}
-                onItemClick = {() => {
-                  navigation.navigate('TodoitemDetails', {itemData: item});
+                onItemClick={() => {
+                  navigation.navigate("TodoitemDetails", { itemData: item });
                 }}
                 onItemLongClick={() => {
                   this.setState({ selectedOptionMenu: item });
@@ -230,98 +226,41 @@ export default class Home extends React.Component {
           stickyHeaderIndices={[0]}
         />
 
-        {/* Add todo list */}
-        <BottomSheet visible={this.state.addTODOList}>
-          <View
-            style={{
-              marginTop: 10,
-              marginBottom: 20,
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Ionicons
-              name="add"
-              size={30}
-              style={{ marginRight: 5, color: "#4B0082" }}
-            />
-            <Text
-              numberOfLines={2}
-              maxLines={2}
-              ellipsizeMode="tail"
-              style={{ fontWeight: "bold", color: "#4B0082" }}
-            >
-              Add TODO List
-            </Text>
-          </View>
-          <View style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-            <TextInput
-              style={{
-                fontSize: 16,
-                paddingVertical: 15,
-                color: "#555",
-                fontWeight: "bold",
-                width: '100%'
-              }}
-              onChangeText={(todoInput) => this.setState({ todoInput })}
-              value={this.state.todoInput}
-              placeholder="Todo Title"
-            />
-            <TextInput
-              style={{
-                fontSize: 16,
-                paddingVertical: 15,
-                color: "#555",
-                fontWeight: "bold",
-                width: '100%'
-              }}
-              onChangeText={(todoInput) =>
-                this.setState({ todoDescription: todoInput })
-              }
-              value={this.state.todoDescription}
-              multiline={true}
-              numberOfLines={3}
-              value={this.state.todoDescription}
-              placeholder="Todo Content"
-            />
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({ addTODOList: !this.state.addTODOList });
-                this.addNewTodo();
-              }}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingVertical: 10,
-              }}
-            >
-              <Text style={{ fontWeight: "bold", color: "#4B0082" }}>Add</Text>
-            </TouchableOpacity>
+        {/* Add TODO Modal */}
+        <AddEditTodoModal
+          visible={this.state.addTODOList}
+          HeaderTitle="Add Todo"
+          TODOTitlePlaceholder="Title"
+          TODOContentPlaceholder="Description"
+          addEditButton="Add"
+          onLeftButtonPress={(title, description) => {
+            this.setState({ addTODOList: !this.state.addTODOList });
+            this.addNewTodo(title, description);
+          }}
+          onCancelButtonPress = {() => {
+            this.setState({
+              addTODOList: !this.state.addTODOList,
+            });
+          }}
+        />
 
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({
-                  addTODOList: !this.state.addTODOList,
-                });
-              }}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingVertical: 10,
-              }}
-            >
-              <Text>Cancel</Text>
-            </TouchableOpacity>
-          </View>
-        </BottomSheet>
+        {/* Edit TODO Modal */}
+        <AddEditTodoModal
+          visible={this.state.editTODOList}
+          HeaderTitle="Edit Todo"
+          TODOTitlePlaceholder="Title"
+          TODOContentPlaceholder="Description"
+          addEditButton="Edit"
+          onAddEditButtonPress={(title, description) => {
+            this.setState({ addTODOList: !this.state.addTODOList });
+            this.addNewTodo(title, description);
+          }}
+          onCancelButtonPress = {() => {
+            this.setState({
+              editTODOList: !this.state.editTODOList,
+            });
+          }}
+        />
 
         {/* Option Menu */}
         <BottomSheet visible={this.state.optionMenuVisible}>
@@ -341,9 +280,6 @@ export default class Home extends React.Component {
               >
                 {this.state.selectedOptionMenu.title}
               </Text>
-              {/* <Text style={{ marginTop: 5 }}>
-                {this.state.selectedOptionMenu.date}
-              </Text> */}
             </View>
             <TouchableOpacity
               onPress={() =>
@@ -383,6 +319,12 @@ export default class Home extends React.Component {
             </TouchableOpacity>
 
             <TouchableOpacity
+              onPress={() => {
+                this.setState({
+                  optionMenuVisible: !this.state.optionMenuVisible,
+                });
+                this.setState({ editTODOList: true });
+              }}
               style={{
                 flexDirection: "row",
                 alignItems: "center",
