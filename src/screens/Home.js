@@ -198,13 +198,17 @@ export default class Home extends React.Component {
             name="duplicate"
             size={15}
             color="#666666"
-            style={{ marginRight: 10 }}
+            style={
+              this.state.colorScheme === "light"
+                ? lightTheme.headerStyleIcon
+                : darkTheme.headerStyleIcon
+            }
           />
           <Text
             style={[
               this.state.colorScheme === "light"
-                ? lightTheme.categoryText
-                : darkTheme.categoryText,
+                ? lightTheme.headerStyleCategoryText
+                : darkTheme.headerStyleCategoryText,
               { marginVertical: 0 },
             ]}
           >

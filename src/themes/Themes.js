@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 //  Light Theme
 const lightTheme = StyleSheet.create({
-  
+
   //  Styles for Home
   container: {
     flex: 1,
@@ -26,6 +26,13 @@ const lightTheme = StyleSheet.create({
     marginBottom: 10,
     alignItems: "center",
     backgroundColor: "#f0f0f0",
+  },
+  headerStyleIcon : {
+    marginRight: 10, 
+    color: "#666"
+  },
+  headerStyleCategoryText : {
+    color: "#000"
   },
   footerTextStyle: {
     color: "#666",
@@ -60,10 +67,17 @@ const darkTheme = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#232323",
   },
+  headerStyleIcon : {
+    marginRight: 10, 
+    color: "#999"
+  },
+  headerStyleCategoryText : {
+    color: "#999"
+  },
   footerTextStyle: {
     color: "#999",
   }
-
+  
 });
 
 export { lightTheme, darkTheme };
