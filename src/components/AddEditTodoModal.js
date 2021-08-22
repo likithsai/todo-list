@@ -1,5 +1,11 @@
 import React from "react";
-import { Text, TouchableOpacity, View, TextInput, Appearance } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+  Appearance,
+} from "react-native";
 import BottomSheet from "./BottomSheet";
 import { lightTheme, darkTheme } from "../themes/Themes";
 
@@ -23,9 +29,7 @@ export default class AddEditTodoModal extends React.Component {
       <BottomSheet
         visible={this.props.visible}
         backgroundColor={
-          this.state.colorScheme === "light"
-            ? '#fff'
-            : '#3E2C41'
+          this.state.colorScheme === "light" ? "#fff" : "#3E2C41"
         }
       >
         <View
@@ -40,7 +44,10 @@ export default class AddEditTodoModal extends React.Component {
             numberOfLines={2}
             maxLines={2}
             ellipsizeMode="tail"
-            style={{ fontWeight: "bold", color: "#4B0082" }}
+            style={{
+              fontWeight: "bold",
+              color: [this.state.colorScheme === "light" ? "#000" : "#fff"],
+            }}
           >
             {this.props.HeaderTitle}
           </Text>
@@ -50,7 +57,7 @@ export default class AddEditTodoModal extends React.Component {
             style={{
               fontSize: 16,
               paddingVertical: 15,
-              color: "#555",
+              color: [this.state.colorScheme === "light" ? "#555" : "#fff"],
               fontWeight: "bold",
               width: "100%",
             }}
@@ -64,7 +71,7 @@ export default class AddEditTodoModal extends React.Component {
             style={{
               fontSize: 16,
               paddingVertical: 15,
-              color: "#555",
+              color: [this.state.colorScheme === "light" ? "#555" : "#fff"],
               fontWeight: "bold",
               width: "100%",
             }}
@@ -98,7 +105,14 @@ export default class AddEditTodoModal extends React.Component {
               paddingVertical: 10,
             }}
           >
-            <Text style={{ fontWeight: "bold", color: "#4B0082" }}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: [
+                  this.state.colorScheme === "light" ? "#4B0082" : "#fff",
+                ],
+              }}
+            >
               {this.props.addEditButton}
             </Text>
           </TouchableOpacity>
@@ -114,6 +128,7 @@ export default class AddEditTodoModal extends React.Component {
             <Text
               style={{
                 fontWeight: "bold",
+                color: [this.state.colorScheme === "light" ? "#000" : "#fff"],
               }}
             >
               Cancel
