@@ -1,19 +1,33 @@
 import React from "react";
-import { Text, TouchableOpacity, View, TextInput } from "react-native";
+import { Text, TouchableOpacity, View, TextInput, Appearance } from "react-native";
 import BottomSheet from "./BottomSheet";
+import { lightTheme, darkTheme } from "../themes/Themes";
 
 export default class AddEditTodoModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todoTitle: '',
+      todoTitle: "",
+      colorScheme: "light",
       todoDescription: JSON.stringify(this.props),
     };
   }
 
+  async componentWillMount() {
+    //  Set theme color for the application
+    this.setState({ colorScheme: Appearance.getColorScheme() });
+  }
+
   render() {
     return (
-      <BottomSheet visible={this.props.visible}>
+      <BottomSheet
+        visible={this.props.visible}
+        backgroundColor={
+          this.state.colorScheme === "light"
+            ? '#fff'
+            : '#3E2C41'
+        }
+      >
         <View
           style={{
             marginTop: 10,

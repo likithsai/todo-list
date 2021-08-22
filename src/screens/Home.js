@@ -298,6 +298,9 @@ export default class Home extends React.Component {
         {/* Edit TODO Modal */}
         <AddEditTodoModal
           visible={this.state.editTODOList}
+          modalBackgroundColor={
+            this.state.colorScheme === "light" ? "#fff" : "#3E2C41"
+          }
           HeaderTitle="Edit Todo"
           TODOTitlePlaceholder="Title"
           TODOContentPlaceholder="Description"
@@ -315,7 +318,12 @@ export default class Home extends React.Component {
         />
 
         {/* Option Menu */}
-        <BottomSheet visible={this.state.optionMenuVisible}>
+        <BottomSheet
+          visible={this.state.optionMenuVisible}
+          backgroundColor={
+            this.state.colorScheme === "light" ? "#fff" : "#3E2C41"
+          }
+        >
           <View
             style={{
               flexDirection: "row",
@@ -328,7 +336,10 @@ export default class Home extends React.Component {
                 numberOfLines={1}
                 maxLines={1}
                 ellipsizeMode="tail"
-                style={{ fontWeight: "bold" }}
+                style={{
+                  fontWeight: "bold",
+                  color: [this.state.colorScheme === "light" ? "#000" : "#fff"],
+                }}
               >
                 {this.state.selectedOptionMenu.title}
               </Text>
@@ -340,7 +351,11 @@ export default class Home extends React.Component {
                 })
               }
             >
-              <Ionicons name="close-outline" size={30} color="#555" />
+              <Ionicons
+                name="close-outline"
+                size={30}
+                color={this.state.colorScheme === "light" ? "#555" : "#fff"}
+              />
             </TouchableOpacity>
           </View>
           <View>
@@ -360,10 +375,16 @@ export default class Home extends React.Component {
               <Ionicons
                 name="checkmark-circle-outline"
                 size={25}
-                color="#555"
+                color={this.state.colorScheme === "light" ? "#555" : "#fff"}
                 style={{ marginRight: 20 }}
               />
-              <Text>
+              <Text
+                style={
+                  this.state.colorScheme === "light"
+                    ? lightTheme.BottombarTextColor
+                    : darkTheme.BottombarTextColor
+                }
+              >
                 {!this.state.selectedOptionMenu.done
                   ? "Highlight Selected"
                   : "Unhighlight Selected"}
@@ -386,10 +407,18 @@ export default class Home extends React.Component {
               <Ionicons
                 name="brush-outline"
                 size={25}
-                color="#555"
+                color={this.state.colorScheme === "light" ? "#555" : "#fff"}
                 style={{ marginRight: 20 }}
               />
-              <Text>Edit</Text>
+              <Text
+                style={
+                  this.state.colorScheme === "light"
+                    ? lightTheme.BottombarTextColor
+                    : darkTheme.BottombarTextColor
+                }
+              >
+                Edit
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -408,10 +437,18 @@ export default class Home extends React.Component {
               <Ionicons
                 name="trash-bin-outline"
                 size={25}
-                color="#555"
+                color={this.state.colorScheme === "light" ? "#555" : "#fff"}
                 style={{ marginRight: 20 }}
               />
-              <Text>Delete</Text>
+              <Text
+                style={
+                  this.state.colorScheme === "light"
+                    ? lightTheme.BottombarTextColor
+                    : darkTheme.BottombarTextColor
+                }
+              >
+                Delete
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -430,10 +467,18 @@ export default class Home extends React.Component {
               <Ionicons
                 name="share-social-outline"
                 size={25}
-                color="#555"
+                color={this.state.colorScheme === "light" ? "#555" : "#fff"}
                 style={{ marginRight: 20 }}
               />
-              <Text>Share</Text>
+              <Text
+                style={
+                  this.state.colorScheme === "light"
+                    ? lightTheme.BottombarTextColor
+                    : darkTheme.BottombarTextColor
+                }
+              >
+                Share
+              </Text>
             </TouchableOpacity>
           </View>
         </BottomSheet>

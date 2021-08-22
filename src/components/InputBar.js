@@ -35,13 +35,14 @@ export default class InputBar extends React.Component {
           onChangeText={(todoInput) => this.props.textChange(todoInput)}
           value={this.props.searchInput}
           placeholder="Search Items"
+          placeholderTextColor={this.state.colorScheme === "light" ? "#555" : "#999"}
         />
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity onPress={this.props.addListHandler}>
             <Ionicons
               name="add"
               size={30}
-              color="#555"
+              color={this.state.colorScheme === "light" ? "#555" : "#999"}
               style={{ marginLeft: 10, marginRight: 5 }}
             />
           </TouchableOpacity>
@@ -50,7 +51,7 @@ export default class InputBar extends React.Component {
             <Ionicons
               name="md-options-outline"
               size={30}
-              color="#555"
+              color={this.state.colorScheme === "light" ? "#555" : "#999"}
               style={{ marginLeft: 5, marginRight: 10 }}
             />
           </TouchableOpacity>

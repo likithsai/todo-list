@@ -110,6 +110,11 @@ const lightTheme = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+
+  //  Bottombar
+  BottombarTextColor : {
+    color: '#000'
+  }
 });
 
 //  Dark Theme
@@ -173,6 +178,11 @@ const darkTheme = StyleSheet.create({
     padding: 15,
     color: "#ccc",
   },
+
+  //  Bottombar
+  BottombarTextColor : {
+    color: '#fff'
+  }
 });
 
 export { lightTheme, darkTheme };
