@@ -7,7 +7,6 @@ import {
   Appearance,
 } from "react-native";
 import BottomSheet from "./BottomSheet";
-import { lightTheme, darkTheme } from "../themes/Themes";
 
 export default class AddEditTodoModal extends React.Component {
   constructor(props) {
